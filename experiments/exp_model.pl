@@ -85,31 +85,19 @@ best(A,S) :-
         
             has_feature(f(3), go(right), s(0)).
             
-            has_feature(f(1), go(right), s(0)).
-            
-            has_feature(f(0), go(left), s(0)).
-            
-            has_feature(f(2), go(left), s(0)).
+            has_feature(f(1), go(left), s(0)).
             
         has_plan(go(right), s(1)).
         has_plan(go(left), s(1)).
         
-            has_feature(f(3), go(right), s(1)).
+            has_feature(f(0), go(right), s(1)).
             
-            has_feature(f(1), go(right), s(1)).
-            
-            has_feature(f(2), go(left), s(1)).
-            
-            has_feature(f(0), go(left), s(1)).
+            has_feature(f(1), go(left), s(1)).
             
         has_plan(go(right), s(2)).
         has_plan(go(left), s(2)).
         
-            has_feature(f(2), go(right), s(2)).
-            
             has_feature(f(3), go(right), s(2)).
-            
-            has_feature(f(0), go(left), s(2)).
             
             has_feature(f(1), go(left), s(2)).
             
@@ -118,22 +106,14 @@ best(A,S) :-
         
             has_feature(f(2), go(right), s(3)).
             
-            has_feature(f(0), go(right), s(3)).
-            
-            has_feature(f(3), go(left), s(3)).
-            
             has_feature(f(1), go(left), s(3)).
             
         has_plan(go(right), s(4)).
         has_plan(go(left), s(4)).
         
-            has_feature(f(1), go(right), s(4)).
+            has_feature(f(2), go(right), s(4)).
             
-            has_feature(f(3), go(right), s(4)).
-            
-            has_feature(f(0), go(left), s(4)).
-            
-            has_feature(f(2), go(left), s(4)).
+            has_feature(f(3), go(left), s(4)).
             
     rank(R) :- between(1, 2, R).
     max_rank(2).

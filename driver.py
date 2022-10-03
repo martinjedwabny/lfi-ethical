@@ -13,6 +13,10 @@ nranks = 2
 nopis = 10
 time_limit = 180
 
+model_file = 'experiments/exp_model.pl'
+opi_file = 'experiments/exp_opinions.pl'
+base_file = 'experiments/base.pl'
+
 def add_learning_params(model, nfeats, nranks):
     permus = list(itertools.combinations_with_replacement(range(1,nranks+1), nfeats))
     for j in range(len(permus)):
@@ -68,7 +72,7 @@ def get_opinions(nopis,nsits):
     return opinions
 
 def get_base_model():
-    with open('experiments/model.pl', 'r') as file:
+    with open(base_file, 'r') as file:
         return file.read()
 
 def get_model(nfeats, nranks, nsits, nfeats_plan):
@@ -85,12 +89,12 @@ def run_test(nfeats,nranks,nsits,nfeats_plan,nopis):
     opinions = get_opinions(nopis, nsits)
     write_input_files(model, opinions)
     with contextlib.redirect_stdout(None):
-        lfi.main(['experiments/exp_model.pl', 'experiments/exp_opinions.pl'])
+        lfi.main([model_file, opi_file])
 
 def write_input_files(model,opinions):
-    with open("experiments/exp_model.pl", "w") as text_file:
+    with open(model_file, "w") as text_file:
         text_file.write(model)
-    with open("experiments/exp_opinions.pl", "w") as text_file:
+    with open(opi_file, "w") as text_file:
         text_file.write(opinions)
 
 
