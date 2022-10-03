@@ -72,3 +72,24 @@ best(A,S) :-
     has_plan(A,S),
     val(A,S,R),
     not((has_plan(B,S), A \= B, val(B,S,R1), R1 > R)).
+
+type(f(0), '-').
+
+type(f(1), '-').
+
+has_plan(go(right), s(0)).
+has_plan(go(left), s(0)).
+
+has_feature(f(1), go(right), s(0)).
+
+has_feature(f(0), go(left), s(0)).
+            
+rank(R) :- between(1, 3, R).
+max_rank(3).
+
+t(_)::rank_assignment([f(0), 1, f(1), 1]);
+t(_)::rank_assignment([f(0), 1, f(1), 2]);
+t(_)::rank_assignment([f(0), 1, f(1), 3]);
+t(_)::rank_assignment([f(0), 2, f(1), 2]);
+t(_)::rank_assignment([f(0), 2, f(1), 3]);
+t(_)::rank_assignment([f(0), 3, f(1), 3]).

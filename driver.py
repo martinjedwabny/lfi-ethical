@@ -1,4 +1,3 @@
-from problog.logic import Term, Clause
 from problog.program import PrologString
 from problog.learning import lfi
 import random
@@ -19,7 +18,7 @@ def add_learning_params(model, nfeats, nranks):
             model += 't(_)::rank_assignment({}).\n'.format(comb).replace("'", "")
     return model
 
-def add_ethical_features(model, nfeats, nsits):
+def add_ethical_features(model, nfeats, nsits, nfeats_plan):
     for i in range(nfeats):
         model += '''
         type(f({}), '-').
@@ -29,63 +28,86 @@ def add_ethical_features(model, nfeats, nsits):
         has_plan(go(right), s({})).
         has_plan(go(left), s({})).
         '''.format(j,j)
-        for i in range(nfeats):
-            if random.choice([True, False]):
-                model += '''
-                has_feature(f({}), go(right), s({})).
-                '''.format(i,j)
-            else:
-                model += '''
-                has_feature(f({}), go(left), s({})).
-                '''.format(i, j)
+        feats = random.sample(range(nfeats), nfeats_plan*2)
+        for i in feats[:nfeats_plan]:
+            model += '''
+            has_feature(f({}), go(right), s({})).
+            '''.format(i,j)
+        for i in feats[nfeats_plan:]:
+            model += '''
+            has_feature(f({}), go(left), s({})).
+            '''.format(i, j)
     return model
 
 def add_ranks(model,nranks):
     ranks = '''
     rank(R) :- between(1, {}, R).
-    '''.format(nranks)
+    max_rank({}).
+    '''.format(nranks,nranks)
     return model + ranks
 
+def opinions_to_evidence(opinions):
+    example = ""
+    for line in opinions:
+        if line.strip().startswith("---"):
+            pl = PrologString(example)
+            atoms = lfi.extract_evidence(pl)
+            if len(atoms) > 0:
+                yield atoms
+            example = ""
+        else:
+            example += line
+    if example:
+        pl = PrologString(example)
+        atoms = lfi.extract_evidence(pl)
+        if len(atoms) > 0:
+            yield atoms
+
 def get_opinions(nopis,nsits):
-    opinions = []
+    opinions = ''
     for i in range(nopis):
-        opi = []
         for j in range(nsits):
             right = random.choice([True,False])
             left = not right
-            opi.append((Term('best',Term('go',Term('right')), Term('s',Term(str(j)))),right))
-            opi.append((Term('best',Term('go',Term('left')), Term('s',Term(str(j)))),left))
-            # opi.append((Term('best(go(left), s({}))'.format(j)), left))
-        opinions.append(opi)
+            opinions += 'evidence(best(go(right),s({})),{}).\n'.format(j,right)
+            opinions += 'evidence(best(go(left),s({})),{}).\n'.format(j,left)
+        if i < nopis - 1:
+            opinions += '---\n'
     return opinions
 
 def get_base_model():
     with open('experiments/model.pl', 'r') as file:
         return file.read()
 
-def get_model(nfeats,nranks,nsits):
+
+def get_model(nfeats, nranks, nsits, nfeats_plan):
     model = get_base_model()
-    model = add_ethical_features(model,nfeats,nsits)
+    model = add_ethical_features(model, nfeats, nsits, nfeats_plan)
     model = add_ranks(model,nranks)
     model = add_learning_params(model,nfeats,nranks)
     return model
 
-def run_test(model,opinions):
-    score, weights, atoms, iteration, lfi_problem = lfi.run_lfi(
-        PrologString(model), opinions)
+def run_test():
+    lfi.main(['experiments/exp_model.pl', 'experiments/exp_opinions.pl'])
 
-    print(lfi_problem.get_model())
-
+def write_input_files(model,opinions):
+    with open("experiments/exp_model.pl", "w") as text_file:
+        text_file.write(model)
+    with open("experiments/exp_opinions.pl", "w") as text_file:
+        text_file.write(opinions)
 
 def main():
-    nsits = 20
-    nfeats = 20
-    nranks = 2
-    nopis = 5
+    nsits = 10
+    nfeats = 5
+    nranks = 3
+    nopis = 10
+    nfeats_plan = 2
     random.seed(0)
-    model = get_model(nfeats,nranks,nsits)
+    model = get_model(nfeats, nranks, nsits, nfeats_plan)
     opinions = get_opinions(nopis,nsits)
-    run_test(model,opinions)
+    write_input_files(model,opinions)
+    run_test()
+
 
 
 if __name__ == "__main__":
