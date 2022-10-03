@@ -17,7 +17,7 @@ model_file = 'experiments/exp_model.pl'
 opi_file = 'experiments/exp_opinions.pl'
 base_file = 'experiments/base.pl'
 
-def add_learning_params(model, nfeats, nranks):
+def add_learning_params(model, nfeats, nranks, max_asgs=100000000):
     permus = list(itertools.combinations_with_replacement(range(1,nranks+1), nfeats))
     for j in range(len(permus)):
         permu = permus[j]
@@ -26,7 +26,11 @@ def add_learning_params(model, nfeats, nranks):
             comb.append('f({})'.format(i))
             comb.append(permu[i])
         if j < len(permus) - 1:
-            model += 't(_)::rank_assignment({});\n'.format(comb).replace("'","")
+            if j < max_asgs - 1:
+                model += 't(_)::rank_assignment({});\n'.format(comb).replace("'","")
+            else:
+                model += 't(_)::rank_assignment({}).\n'.format(comb).replace("'", "")
+                return model
         else:
             model += 't(_)::rank_assignment({}).\n'.format(comb).replace("'", "")
     return model
@@ -75,16 +79,18 @@ def get_base_model():
     with open(base_file, 'r') as file:
         return file.read()
 
-def get_model(nfeats, nranks, nsits, nfeats_plan):
+
+def get_model(nfeats, nranks, nsits, nfeats_plan, max_asgs=100000000):
     model = get_base_model()
     model = add_ethical_features(model, nfeats, nsits, nfeats_plan)
     model = add_ranks(model,nranks)
-    model = add_learning_params(model,nfeats,nranks)
+    model = add_learning_params(model,nfeats,nranks,max_asgs)
     return model
 
-def run_test(nfeats,nranks,nsits,nfeats_plan,nopis):
+
+def run_test(nfeats, nranks, nsits, nfeats_plan, nopis, max_asgs=100000000):
     random.seed(0)
-    model = get_model(nfeats, nranks, nsits, nfeats_plan)
+    model = get_model(nfeats, nranks, nsits, nfeats_plan, max_asgs)
     random.seed(0)
     opinions = get_opinions(nopis, nsits)
     write_input_files(model, opinions)
@@ -113,28 +119,42 @@ def test_features(nfeats_plan):
             return
 
 
-def test_ranks():
+def test_ranks(nfeats):
     min_ranks = 2
     max_ranks = 100
     print('Testing ranks')
     print('ranks,time')
     for i in range(min_ranks, max_ranks+1):
         start = time.time()
-        run_test(nfeats, i, nsits, nfeats_plan, nopis)
+        run_test(nfeats, i, 20, int(nfeats/2), nopis)
         end = time.time()
         elapsed = end - start
         print('{},{}'.format(i, elapsed))
         if elapsed > time_limit:
             return
 
-def test_opis():
+def test_rank_asgs():
+    min_asgs = 2
+    max_asgs = 200
+    print('Testing asgs')
+    print('asgs,time')
+    for i in range(min_asgs, max_asgs+1):
+        start = time.time()
+        run_test(5, 5, 20, int(nfeats/2), nopis, i)
+        end = time.time()
+        elapsed = end - start
+        print('{},{}'.format(i, elapsed))
+        if elapsed > time_limit:
+            return
+
+def test_opis(nfeats):
     min_opis = 1
     max_opis = 1000
     print('Testing opis')
     print('opis,time')
     for i in range(min_opis, max_opis+1):
         start = time.time()
-        run_test(nfeats, nranks, nsits, nfeats_plan, i)
+        run_test(nfeats, nranks, 20, int(nfeats/2), i)
         end = time.time()
         elapsed = end - start
         print('{},{}'.format(i, elapsed))
@@ -143,11 +163,14 @@ def test_opis():
 
 
 def main():
-    test_features(1)
-    test_features(2)
-    test_features(3)
-    test_ranks()
-    test_opis()
+    # test_features(1)
+    # test_features(2)
+    # test_features(3)
+    # test_ranks(2)
+    test_rank_asgs()
+    # test_opis(4)
+    # test_opis(8)
+    return
 
 
 
