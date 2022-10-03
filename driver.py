@@ -14,7 +14,6 @@ nopis = 10
 time_limit = 180
 
 def add_learning_params(model, nfeats, nranks):
-    feats = ['f({})'.format(i) for i in range(nfeats)]
     permus = list(itertools.combinations_with_replacement(range(1,nranks+1), nfeats))
     for j in range(len(permus)):
         permu = permus[j]
@@ -56,23 +55,6 @@ def add_ranks(model,nranks):
     '''.format(nranks,nranks)
     return model + ranks
 
-def opinions_to_evidence(opinions):
-    example = ""
-    for line in opinions:
-        if line.strip().startswith("---"):
-            pl = PrologString(example)
-            atoms = lfi.extract_evidence(pl)
-            if len(atoms) > 0:
-                yield atoms
-            example = ""
-        else:
-            example += line
-    if example:
-        pl = PrologString(example)
-        atoms = lfi.extract_evidence(pl)
-        if len(atoms) > 0:
-            yield atoms
-
 def get_opinions(nopis,nsits):
     opinions = ''
     for i in range(nopis):
@@ -88,7 +70,6 @@ def get_opinions(nopis,nsits):
 def get_base_model():
     with open('experiments/model.pl', 'r') as file:
         return file.read()
-
 
 def get_model(nfeats, nranks, nsits, nfeats_plan):
     model = get_base_model()
