@@ -2,6 +2,16 @@ from problog.program import PrologString
 from problog.learning import lfi
 import random
 import itertools
+import time
+import contextlib
+
+# Default values
+nsits = 5
+nfeats = 4
+nfeats_plan = 2
+nranks = 2
+nopis = 10
+time_limit = 180
 
 def add_learning_params(model, nfeats, nranks):
     feats = ['f({})'.format(i) for i in range(nfeats)]
@@ -87,8 +97,14 @@ def get_model(nfeats, nranks, nsits, nfeats_plan):
     model = add_learning_params(model,nfeats,nranks)
     return model
 
-def run_test():
-    lfi.main(['experiments/exp_model.pl', 'experiments/exp_opinions.pl'])
+def run_test(nfeats,nranks,nsits,nfeats_plan,nopis):
+    random.seed(0)
+    model = get_model(nfeats, nranks, nsits, nfeats_plan)
+    random.seed(0)
+    opinions = get_opinions(nopis, nsits)
+    write_input_files(model, opinions)
+    with contextlib.redirect_stdout(None):
+        lfi.main(['experiments/exp_model.pl', 'experiments/exp_opinions.pl'])
 
 def write_input_files(model,opinions):
     with open("experiments/exp_model.pl", "w") as text_file:
@@ -96,17 +112,57 @@ def write_input_files(model,opinions):
     with open("experiments/exp_opinions.pl", "w") as text_file:
         text_file.write(opinions)
 
+
+def test_features(nfeats_plan):
+    min_features = 2*nfeats_plan
+    max_features = 100
+    print('Testing features')
+    print('features,time')
+    for i in range(min_features, max_features+1):
+        start = time.time()
+        run_test(i, nranks, nsits, nfeats_plan, nopis)
+        end = time.time()
+        elapsed = end - start
+        print('{},{}'.format(i, elapsed))
+        if elapsed > time_limit:
+            return
+
+
+def test_ranks():
+    min_ranks = 2
+    max_ranks = 100
+    print('Testing ranks')
+    print('ranks,time')
+    for i in range(min_ranks, max_ranks+1):
+        start = time.time()
+        run_test(nfeats, i, nsits, nfeats_plan, nopis)
+        end = time.time()
+        elapsed = end - start
+        print('{},{}'.format(i, elapsed))
+        if elapsed > time_limit:
+            return
+
+def test_opis():
+    min_opis = 1
+    max_opis = 1000
+    print('Testing opis')
+    print('opis,time')
+    for i in range(min_opis, max_opis+1):
+        start = time.time()
+        run_test(nfeats, nranks, nsits, nfeats_plan, i)
+        end = time.time()
+        elapsed = end - start
+        print('{},{}'.format(i, elapsed))
+        if elapsed > time_limit:
+            return
+
+
 def main():
-    nsits = 10
-    nfeats = 5
-    nranks = 3
-    nopis = 10
-    nfeats_plan = 2
-    random.seed(0)
-    model = get_model(nfeats, nranks, nsits, nfeats_plan)
-    opinions = get_opinions(nopis,nsits)
-    write_input_files(model,opinions)
-    run_test()
+    test_features(1)
+    test_features(2)
+    test_features(3)
+    test_ranks()
+    test_opis()
 
 
 
