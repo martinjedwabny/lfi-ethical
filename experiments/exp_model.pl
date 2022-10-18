@@ -80,232 +80,84 @@ best(A,S) :-
         
         type(f(3), '-').
         
-        type(f(4), '-').
-        
         has_plan(go(right), s(0)).
         has_plan(go(left), s(0)).
         
             has_feature(f(3), go(right), s(0)).
             
-            has_feature(f(4), go(right), s(0)).
+            has_feature(f(1), go(right), s(0)).
             
             has_feature(f(0), go(left), s(0)).
             
-            has_feature(f(1), go(left), s(0)).
+            has_feature(f(2), go(left), s(0)).
             
         has_plan(go(right), s(1)).
         has_plan(go(left), s(1)).
         
-            has_feature(f(4), go(right), s(1)).
-            
             has_feature(f(3), go(right), s(1)).
             
-            has_feature(f(1), go(left), s(1)).
+            has_feature(f(1), go(right), s(1)).
             
             has_feature(f(2), go(left), s(1)).
+            
+            has_feature(f(0), go(left), s(1)).
             
         has_plan(go(right), s(2)).
         has_plan(go(left), s(2)).
         
-            has_feature(f(3), go(right), s(2)).
-            
             has_feature(f(2), go(right), s(2)).
             
-            has_feature(f(4), go(left), s(2)).
+            has_feature(f(3), go(right), s(2)).
             
             has_feature(f(0), go(left), s(2)).
+            
+            has_feature(f(1), go(left), s(2)).
             
         has_plan(go(right), s(3)).
         has_plan(go(left), s(3)).
         
-            has_feature(f(4), go(right), s(3)).
+            has_feature(f(2), go(right), s(3)).
             
-            has_feature(f(1), go(right), s(3)).
+            has_feature(f(0), go(right), s(3)).
             
             has_feature(f(3), go(left), s(3)).
             
-            has_feature(f(0), go(left), s(3)).
+            has_feature(f(1), go(left), s(3)).
             
         has_plan(go(right), s(4)).
         has_plan(go(left), s(4)).
         
-            has_feature(f(0), go(right), s(4)).
-            
-            has_feature(f(2), go(right), s(4)).
-            
-            has_feature(f(3), go(left), s(4)).
-            
-            has_feature(f(4), go(left), s(4)).
-            
-        has_plan(go(right), s(5)).
-        has_plan(go(left), s(5)).
-        
-            has_feature(f(2), go(right), s(5)).
-            
-            has_feature(f(0), go(right), s(5)).
-            
-            has_feature(f(4), go(left), s(5)).
-            
-            has_feature(f(3), go(left), s(5)).
-            
-        has_plan(go(right), s(6)).
-        has_plan(go(left), s(6)).
-        
-            has_feature(f(2), go(right), s(6)).
-            
-            has_feature(f(3), go(right), s(6)).
-            
-            has_feature(f(4), go(left), s(6)).
-            
-            has_feature(f(0), go(left), s(6)).
-            
-        has_plan(go(right), s(7)).
-        has_plan(go(left), s(7)).
-        
-            has_feature(f(2), go(right), s(7)).
-            
-            has_feature(f(3), go(right), s(7)).
-            
-            has_feature(f(1), go(left), s(7)).
-            
-            has_feature(f(0), go(left), s(7)).
-            
-        has_plan(go(right), s(8)).
-        has_plan(go(left), s(8)).
-        
-            has_feature(f(4), go(right), s(8)).
-            
-            has_feature(f(3), go(right), s(8)).
-            
-            has_feature(f(1), go(left), s(8)).
-            
-            has_feature(f(2), go(left), s(8)).
-            
-        has_plan(go(right), s(9)).
-        has_plan(go(left), s(9)).
-        
-            has_feature(f(0), go(right), s(9)).
-            
-            has_feature(f(4), go(right), s(9)).
-            
-            has_feature(f(3), go(left), s(9)).
-            
-            has_feature(f(1), go(left), s(9)).
-            
-        has_plan(go(right), s(10)).
-        has_plan(go(left), s(10)).
-        
-            has_feature(f(0), go(right), s(10)).
-            
-            has_feature(f(3), go(right), s(10)).
-            
-            has_feature(f(1), go(left), s(10)).
-            
-            has_feature(f(4), go(left), s(10)).
-            
-        has_plan(go(right), s(11)).
-        has_plan(go(left), s(11)).
-        
-            has_feature(f(2), go(right), s(11)).
-            
-            has_feature(f(0), go(right), s(11)).
-            
-            has_feature(f(3), go(left), s(11)).
-            
-            has_feature(f(4), go(left), s(11)).
-            
-        has_plan(go(right), s(12)).
-        has_plan(go(left), s(12)).
-        
-            has_feature(f(1), go(right), s(12)).
-            
-            has_feature(f(4), go(right), s(12)).
-            
-            has_feature(f(2), go(left), s(12)).
-            
-            has_feature(f(3), go(left), s(12)).
-            
-        has_plan(go(right), s(13)).
-        has_plan(go(left), s(13)).
-        
-            has_feature(f(0), go(right), s(13)).
-            
-            has_feature(f(4), go(right), s(13)).
-            
-            has_feature(f(1), go(left), s(13)).
-            
-            has_feature(f(2), go(left), s(13)).
-            
-        has_plan(go(right), s(14)).
-        has_plan(go(left), s(14)).
-        
-            has_feature(f(0), go(right), s(14)).
-            
-            has_feature(f(2), go(right), s(14)).
-            
-            has_feature(f(3), go(left), s(14)).
-            
-            has_feature(f(1), go(left), s(14)).
-            
-        has_plan(go(right), s(15)).
-        has_plan(go(left), s(15)).
-        
-            has_feature(f(0), go(right), s(15)).
-            
-            has_feature(f(2), go(right), s(15)).
-            
-            has_feature(f(3), go(left), s(15)).
-            
-            has_feature(f(4), go(left), s(15)).
-            
-        has_plan(go(right), s(16)).
-        has_plan(go(left), s(16)).
-        
-            has_feature(f(4), go(right), s(16)).
-            
-            has_feature(f(2), go(right), s(16)).
-            
-            has_feature(f(1), go(left), s(16)).
-            
-            has_feature(f(0), go(left), s(16)).
-            
-        has_plan(go(right), s(17)).
-        has_plan(go(left), s(17)).
-        
-            has_feature(f(4), go(right), s(17)).
-            
-            has_feature(f(3), go(right), s(17)).
-            
-            has_feature(f(1), go(left), s(17)).
-            
-            has_feature(f(0), go(left), s(17)).
-            
-        has_plan(go(right), s(18)).
-        has_plan(go(left), s(18)).
-        
-            has_feature(f(2), go(right), s(18)).
-            
-            has_feature(f(1), go(right), s(18)).
-            
-            has_feature(f(0), go(left), s(18)).
-            
-            has_feature(f(4), go(left), s(18)).
-            
-        has_plan(go(right), s(19)).
-        has_plan(go(left), s(19)).
-        
-            has_feature(f(0), go(right), s(19)).
-            
-            has_feature(f(2), go(right), s(19)).
-            
-            has_feature(f(1), go(left), s(19)).
-            
-            has_feature(f(4), go(left), s(19)).
-            
-    rank(R) :- between(1, 5, R).
-    max_rank(5).
-    t(_)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1]);
-t(_)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 2]);
-t(_)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 3]);
-t(_)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 4]);
-t(_)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 5]).
+            has_feature(f(1), go(right), s(4)).
+            
+            has_feature(f(3), go(right), s(4)).
+            
+            has_feature(f(0), go(left), s(4)).
+            
+            has_feature(f(2), go(left), s(4)).
+            
+    rank(R) :- between(1, 4, R).
+    max_rank(4).
+    t(_)::rank_assignment([f(0), 1, f(1), 2, f(2), 3, f(3), 4]);
+t(_)::rank_assignment([f(0), 1, f(1), 2, f(2), 4, f(3), 3]);
+t(_)::rank_assignment([f(0), 1, f(1), 3, f(2), 2, f(3), 4]);
+t(_)::rank_assignment([f(0), 1, f(1), 3, f(2), 4, f(3), 2]);
+t(_)::rank_assignment([f(0), 1, f(1), 4, f(2), 2, f(3), 3]);
+t(_)::rank_assignment([f(0), 1, f(1), 4, f(2), 3, f(3), 2]);
+t(_)::rank_assignment([f(0), 2, f(1), 1, f(2), 3, f(3), 4]);
+t(_)::rank_assignment([f(0), 2, f(1), 1, f(2), 4, f(3), 3]);
+t(_)::rank_assignment([f(0), 2, f(1), 3, f(2), 1, f(3), 4]);
+t(_)::rank_assignment([f(0), 2, f(1), 3, f(2), 4, f(3), 1]);
+t(_)::rank_assignment([f(0), 2, f(1), 4, f(2), 1, f(3), 3]);
+t(_)::rank_assignment([f(0), 2, f(1), 4, f(2), 3, f(3), 1]);
+t(_)::rank_assignment([f(0), 3, f(1), 1, f(2), 2, f(3), 4]);
+t(_)::rank_assignment([f(0), 3, f(1), 1, f(2), 4, f(3), 2]);
+t(_)::rank_assignment([f(0), 3, f(1), 2, f(2), 1, f(3), 4]);
+t(_)::rank_assignment([f(0), 3, f(1), 2, f(2), 4, f(3), 1]);
+t(_)::rank_assignment([f(0), 3, f(1), 4, f(2), 1, f(3), 2]);
+t(_)::rank_assignment([f(0), 3, f(1), 4, f(2), 2, f(3), 1]);
+t(_)::rank_assignment([f(0), 4, f(1), 1, f(2), 2, f(3), 3]);
+t(_)::rank_assignment([f(0), 4, f(1), 1, f(2), 3, f(3), 2]);
+t(_)::rank_assignment([f(0), 4, f(1), 2, f(2), 1, f(3), 3]);
+t(_)::rank_assignment([f(0), 4, f(1), 2, f(2), 3, f(3), 1]);
+t(_)::rank_assignment([f(0), 4, f(1), 3, f(2), 1, f(3), 2]);
+t(_)::rank_assignment([f(0), 4, f(1), 3, f(2), 2, f(3), 1]).

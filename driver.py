@@ -4,12 +4,13 @@ import random
 import itertools
 import time
 import contextlib
+import os
 
 # Default values
 nsits = 5
 nfeats = 4
 nfeats_plan = 2
-nranks = 2
+nrepeats = 1
 nopis = 10
 time_limit = 180
 
@@ -17,8 +18,10 @@ model_file = 'experiments/exp_model.pl'
 opi_file = 'experiments/exp_opinions.pl'
 base_file = 'experiments/base.pl'
 
-def add_learning_params(model, nfeats, nranks, max_asgs=100000000):
-    permus = list(itertools.combinations_with_replacement(range(1,nranks+1), nfeats))
+def add_learning_params(model, nfeats, nrepeats, max_asgs=100000000):
+    permus = list(itertools.permutations(
+        list(range(1, nfeats+1)) * nrepeats, r=nfeats))
+    print(len(permus))
     for j in range(len(permus)):
         permu = permus[j]
         comb = []
@@ -80,17 +83,17 @@ def get_base_model():
         return file.read()
 
 
-def get_model(nfeats, nranks, nsits, nfeats_plan, max_asgs=100000000):
+def get_model(nfeats, nrepeats, nsits, nfeats_plan, max_asgs=100000000):
     model = get_base_model()
     model = add_ethical_features(model, nfeats, nsits, nfeats_plan)
-    model = add_ranks(model,nranks)
-    model = add_learning_params(model,nfeats,nranks,max_asgs)
+    model = add_ranks(model,nfeats)
+    model = add_learning_params(model,nfeats,nrepeats,max_asgs)
     return model
 
 
-def run_test(nfeats, nranks, nsits, nfeats_plan, nopis, max_asgs=100000000):
+def run_test(nfeats, nrepeats, nsits, nfeats_plan, nopis, max_asgs=100000000):
     random.seed(0)
-    model = get_model(nfeats, nranks, nsits, nfeats_plan, max_asgs)
+    model = get_model(nfeats, nrepeats, nsits, nfeats_plan, max_asgs)
     random.seed(0)
     opinions = get_opinions(nopis, nsits)
     write_input_files(model, opinions)
@@ -111,7 +114,7 @@ def test_features(nfeats_plan):
     print('features,time')
     for i in range(min_features, max_features+1):
         start = time.time()
-        run_test(i, nranks, nsits, nfeats_plan, nopis)
+        run_test(i, nrepeats, nsits, nfeats_plan, nopis)
         end = time.time()
         elapsed = end - start
         print('{},{}'.format(i, elapsed))
@@ -119,28 +122,28 @@ def test_features(nfeats_plan):
             return
 
 
-def test_ranks(nfeats):
-    min_ranks = 2
-    max_ranks = 100
-    print('Testing ranks')
-    print('ranks,time')
-    for i in range(min_ranks, max_ranks+1):
-        start = time.time()
-        run_test(nfeats, i, 20, int(nfeats/2), nopis)
-        end = time.time()
-        elapsed = end - start
-        print('{},{}'.format(i, elapsed))
-        if elapsed > time_limit:
-            return
+# def test_ranks(nfeats):
+#     min_ranks = 2
+#     max_ranks = 100
+#     print('Testing ranks')
+#     print('ranks,time')
+#     for i in range(min_ranks, max_ranks+1):
+#         start = time.time()
+#         run_test(nfeats, i, 20, int(nfeats/2), nopis)
+#         end = time.time()
+#         elapsed = end - start
+#         print('{},{}'.format(i, elapsed))
+#         if elapsed > time_limit:
+#             return
 
 def test_rank_asgs():
     min_asgs = 2
-    max_asgs = 200
+    max_asgs = 1024
     print('Testing asgs')
     print('asgs,time')
-    for i in range(min_asgs, max_asgs+1):
+    for i in range(min_asgs, max_asgs+1, 10):
         start = time.time()
-        run_test(5, 5, 20, int(nfeats/2), nopis, i)
+        run_test(10, nrepeats, 4, int(nfeats/2), 5, i)
         end = time.time()
         elapsed = end - start
         print('{},{}'.format(i, elapsed))
@@ -152,9 +155,9 @@ def test_opis(nfeats):
     max_opis = 1000
     print('Testing opis')
     print('opis,time')
-    for i in range(min_opis, max_opis+1):
+    for i in range(min_opis, max_opis+1, 10):
         start = time.time()
-        run_test(nfeats, nranks, 20, int(nfeats/2), i)
+        run_test(nfeats, nrepeats, 20, int(nfeats/2), i)
         end = time.time()
         elapsed = end - start
         print('{},{}'.format(i, elapsed))
@@ -163,13 +166,21 @@ def test_opis(nfeats):
 
 
 def main():
+    if (os.nice(-19)==-19):
+        print('OS.nice OK.')
     # test_features(1)
-    # test_features(2)
+    test_features(2)
     # test_features(3)
+    # test_features(5)
+    # test_features(10)
+    # test_features(15)
     # test_ranks(2)
-    test_rank_asgs()
+    # test_rank_asgs()
     # test_opis(4)
+    # test_opis(6)
     # test_opis(8)
+    # test_opis(10)
+    # test_opis(15)
     return
 
 
