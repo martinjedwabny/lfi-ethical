@@ -80,84 +80,123 @@ best(A,S) :-
         
         type(f(3), '-').
         
+        type(f(4), '-').
+        
+        type(f(5), '-').
+        
+        type(f(6), '-').
+        
+        type(f(7), '-').
+        
+        type(f(8), '-').
+        
         has_plan(go(right), s(0)).
         has_plan(go(left), s(0)).
         
-            has_feature(f(3), go(right), s(0)).
+            has_feature(f(6), go(right), s(0)).
             
-            has_feature(f(1), go(right), s(0)).
+            has_feature(f(8), go(right), s(0)).
             
-            has_feature(f(0), go(left), s(0)).
+            has_feature(f(0), go(right), s(0)).
             
-            has_feature(f(2), go(left), s(0)).
+            has_feature(f(2), go(right), s(0)).
+            
+            has_feature(f(4), go(left), s(0)).
+            
+            has_feature(f(3), go(left), s(0)).
+            
+            has_feature(f(1), go(left), s(0)).
+            
+            has_feature(f(5), go(left), s(0)).
             
         has_plan(go(right), s(1)).
         has_plan(go(left), s(1)).
         
-            has_feature(f(3), go(right), s(1)).
+            has_feature(f(7), go(right), s(1)).
+            
+            has_feature(f(5), go(right), s(1)).
+            
+            has_feature(f(4), go(right), s(1)).
             
             has_feature(f(1), go(right), s(1)).
             
-            has_feature(f(2), go(left), s(1)).
+            has_feature(f(6), go(left), s(1)).
+            
+            has_feature(f(8), go(left), s(1)).
+            
+            has_feature(f(3), go(left), s(1)).
             
             has_feature(f(0), go(left), s(1)).
             
         has_plan(go(right), s(2)).
         has_plan(go(left), s(2)).
         
-            has_feature(f(2), go(right), s(2)).
+            has_feature(f(1), go(right), s(2)).
             
-            has_feature(f(3), go(right), s(2)).
+            has_feature(f(4), go(right), s(2)).
+            
+            has_feature(f(7), go(right), s(2)).
+            
+            has_feature(f(5), go(right), s(2)).
+            
+            has_feature(f(6), go(left), s(2)).
+            
+            has_feature(f(8), go(left), s(2)).
+            
+            has_feature(f(3), go(left), s(2)).
             
             has_feature(f(0), go(left), s(2)).
-            
-            has_feature(f(1), go(left), s(2)).
             
         has_plan(go(right), s(3)).
         has_plan(go(left), s(3)).
         
-            has_feature(f(2), go(right), s(3)).
+            has_feature(f(1), go(right), s(3)).
             
-            has_feature(f(0), go(right), s(3)).
+            has_feature(f(5), go(right), s(3)).
             
-            has_feature(f(3), go(left), s(3)).
+            has_feature(f(3), go(right), s(3)).
             
-            has_feature(f(1), go(left), s(3)).
+            has_feature(f(4), go(right), s(3)).
             
-        has_plan(go(right), s(4)).
-        has_plan(go(left), s(4)).
-        
-            has_feature(f(1), go(right), s(4)).
+            has_feature(f(0), go(left), s(3)).
             
-            has_feature(f(3), go(right), s(4)).
+            has_feature(f(2), go(left), s(3)).
             
-            has_feature(f(0), go(left), s(4)).
+            has_feature(f(8), go(left), s(3)).
             
-            has_feature(f(2), go(left), s(4)).
+            has_feature(f(6), go(left), s(3)).
             
-    rank(R) :- between(1, 4, R).
-    max_rank(4).
-    t(_)::rank_assignment([f(0), 1, f(1), 2, f(2), 3, f(3), 4]);
-t(_)::rank_assignment([f(0), 1, f(1), 2, f(2), 4, f(3), 3]);
-t(_)::rank_assignment([f(0), 1, f(1), 3, f(2), 2, f(3), 4]);
-t(_)::rank_assignment([f(0), 1, f(1), 3, f(2), 4, f(3), 2]);
-t(_)::rank_assignment([f(0), 1, f(1), 4, f(2), 2, f(3), 3]);
-t(_)::rank_assignment([f(0), 1, f(1), 4, f(2), 3, f(3), 2]);
-t(_)::rank_assignment([f(0), 2, f(1), 1, f(2), 3, f(3), 4]);
-t(_)::rank_assignment([f(0), 2, f(1), 1, f(2), 4, f(3), 3]);
-t(_)::rank_assignment([f(0), 2, f(1), 3, f(2), 1, f(3), 4]);
-t(_)::rank_assignment([f(0), 2, f(1), 3, f(2), 4, f(3), 1]);
-t(_)::rank_assignment([f(0), 2, f(1), 4, f(2), 1, f(3), 3]);
-t(_)::rank_assignment([f(0), 2, f(1), 4, f(2), 3, f(3), 1]);
-t(_)::rank_assignment([f(0), 3, f(1), 1, f(2), 2, f(3), 4]);
-t(_)::rank_assignment([f(0), 3, f(1), 1, f(2), 4, f(3), 2]);
-t(_)::rank_assignment([f(0), 3, f(1), 2, f(2), 1, f(3), 4]);
-t(_)::rank_assignment([f(0), 3, f(1), 2, f(2), 4, f(3), 1]);
-t(_)::rank_assignment([f(0), 3, f(1), 4, f(2), 1, f(3), 2]);
-t(_)::rank_assignment([f(0), 3, f(1), 4, f(2), 2, f(3), 1]);
-t(_)::rank_assignment([f(0), 4, f(1), 1, f(2), 2, f(3), 3]);
-t(_)::rank_assignment([f(0), 4, f(1), 1, f(2), 3, f(3), 2]);
-t(_)::rank_assignment([f(0), 4, f(1), 2, f(2), 1, f(3), 3]);
-t(_)::rank_assignment([f(0), 4, f(1), 2, f(2), 3, f(3), 1]);
-t(_)::rank_assignment([f(0), 4, f(1), 3, f(2), 1, f(3), 2]);
-t(_)::rank_assignment([f(0), 4, f(1), 3, f(2), 2, f(3), 1]).
+    rank(R) :- between(1, 3, R).
+    max_rank(3).
+    t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 1, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 1, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 1, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 2, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 2, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 2, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 3, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 3, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 1, f(7), 3, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 1, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 1, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 1, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 2, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 2, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 2, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 3, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 3, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 2, f(7), 3, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 1, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 1, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 1, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 2, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 2, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 2, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 3, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 3, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 1, f(6), 3, f(7), 3, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 2, f(6), 1, f(7), 1, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 2, f(6), 1, f(7), 1, f(8), 2]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 2, f(6), 1, f(7), 1, f(8), 3]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 2, f(6), 1, f(7), 2, f(8), 1]);
+t(1/32)::rank_assignment([f(0), 1, f(1), 1, f(2), 1, f(3), 1, f(4), 1, f(5), 2, f(6), 1, f(7), 2, f(8), 2]).
