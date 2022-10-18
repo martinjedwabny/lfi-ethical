@@ -181,14 +181,15 @@ def main():
     # test_opis(8)
     # test_opis(10)
     # test_opis(15)
-    # test_rank_asgs(5, 2)
-    # test_rank_asgs(5, 3)
-    # test_rank_asgs(5, 4)
-    # test_rank_asgs(7, 2)
-    # test_rank_asgs(7, 3)
-    # test_rank_asgs(7, 4)
-    test_rank_asgs(9, 2)
-    test_rank_asgs(9, 3)
+    test_rank_asgs(5, 2)
+    test_rank_asgs(5, 3)
+    test_rank_asgs(5, 4)
+    test_rank_asgs(7, 2)
+    test_rank_asgs(7, 3)
+    test_rank_asgs(7, 4)
+    test_rank_asgs(10, 2)
+    test_rank_asgs(10, 3)
+    test_rank_asgs(10, 4)
     return
 
 
